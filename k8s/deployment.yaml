@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skyhigh-flask
+  labels:
+    app: skyhigh-flask
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: skyhigh-flask
+  template:
+    metadata:
+      labels:
+        app: skyhigh-flask
+    spec:
+      containers:
+        - name: skyhigh-flask
+          image: IMAGE_PLACEHOLDER
+          ports:
+            - containerPort: 5000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: skyhigh-flask
+spec:
+  selector:
+    app: skyhigh-flask
+  ports:
+    - port: 80
+      targetPort: 5000

@@ -1,0 +1,9 @@
+venv/
+tests/
+.git/
+.github/
+__pycache__/
+.pytest_cache/
+.coverage
+.ruff_cache/
+k8s/
